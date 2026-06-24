@@ -223,7 +223,7 @@ button{cursor:pointer;font-family:inherit;}
   color:var(--white);line-height:.95;
   margin-bottom:18px;
   text-shadow:0 2px 60px rgba(212,175,55,.35);
-  display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;
+  display:flex;align-items:center;justify-content:center;gap:clamp(40px,8vw,90px);flex-wrap:wrap;
 }
 .hero-names .hn-name{white-space:nowrap;}
 .hero-heart-icon{
@@ -247,7 +247,7 @@ button{cursor:pointer;font-family:inherit;}
   font-weight:300;line-height:2.1;margin-bottom:30px;
 }
 .hero-couple{
-  display:flex;align-items:center;justify-content:center;gap:24px;
+  display:flex;align-items:center;justify-content:center;gap:clamp(28px,5vw,50px);
   margin:20px 0 36px;flex-wrap:wrap;
 }
 .couple-name{
@@ -1164,7 +1164,7 @@ footer{
         <input class="rsvp-input" type="text" id="rsvp-msg" placeholder="كلمة تهنئة أو دعاء">
         <button class="rsvp-btn" onclick="submitRsvp()">
           <i class="fas fa-heart" style="margin-left:8px;"></i>
-          أرسل
+          أرسل تأكيدي
         </button>
       </div>
       <div class="rsvp-success" id="rsvp-success">
