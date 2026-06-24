@@ -1120,16 +1120,16 @@ footer{
         <input class="rsvp-input" type="text" id="rsvp-name" placeholder="اسمك الكريم" autocomplete="name">
         <div class="rsvp-radios">
           <label class="rsvp-radio-label">
-            <input type="radio" name="attend" value="yes" checked>
+            <input type="radio" name="attend" value="سأكون حاضراً بإذن الله" checked>
             <span>✅ سأكون حاضرًا بإذن الله</span>
           </label>
           <label class="rsvp-radio-label">
-            <input type="radio" name="attend" value="no">
+            <input type="radio" name="attend" value="أعتذر بكل محبة">
             <span>🙏 أعتذر بكل محبة</span>
           </label>
         </div>
         <input class="rsvp-input" type="text" id="rsvp-msg" placeholder="كلمة تهنئة أو دعاء">
-        <button class="rsvp-btn" onclick="submitRsvp()">
+        <button class="rsvp-btn" id="rsvp-submit-btn" onclick="submitRsvp()">
           <i class="fas fa-heart" style="margin-left:8px;"></i>
           أرسل
         </button>
@@ -1360,18 +1360,62 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft') lbNav(1);
 });
 
-/* ===== RSVP ===== */
+/* ===== RSVP WITH WEB3FORMS API ===== */
 function submitRsvp() {
   const name = document.getElementById('rsvp-name').value.trim();
+  const msg = document.getElementById('rsvp-msg').value.trim();
+  const attendRadio = document.querySelector('input[name="attend"]:checked');
+  const attendValue = attendRadio ? attendRadio.value : "غير محدد";
+  const submitBtn = document.getElementById('rsvp-submit-btn');
+
   if (!name) {
     document.getElementById('rsvp-name').style.borderColor = 'var(--rose-gold)';
     document.getElementById('rsvp-name').focus();
     return;
   }
-  document.getElementById('rsvp-form').style.display = 'none';
-  const suc = document.getElementById('rsvp-success');
-  document.getElementById('rsvp-thankyou-name').textContent = name;
-  suc.classList.add('show');
+
+  // تغيير حالة الزر أثناء الإرسال لمنع التكرار
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-left:8px;"></i>جاري الإرسال...';
+
+  // تجهيز البيانات لإرسالها لـ Web3Forms
+  const formData = {
+    access_key: "e52f55db-6611-478b-be24-6cdde8db76ed",
+    name: name,
+    attendance: attendValue,
+    message: msg || "لا توجد رسالة إضافية",
+    from_name: "موقع زفاف كريم وعلياء"
+  };
+
+  fetch("https://api.web3forms.com/submit", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify(formData)
+  })
+  .then(async (response) => {
+    let json = await response.json();
+    if (response.status == 200) {
+      // إخفاء الفورم وإظهار رسالة النجاح في حالة نجاح الإرسال
+      document.getElementById('rsvp-form').style.display = 'none';
+      const suc = document.getElementById('rsvp-success');
+      document.getElementById('rsvp-thankyou-name').textContent = name;
+      suc.classList.add('show');
+    } else {
+      console.log(json);
+      alert("عذراً، حدث خطأ أثناء إرسال البيانات. يرجى المحاولة لاحقاً.");
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<i class="fas fa-heart" style="margin-left:8px;"></i>أرسل';
+    }
+  })
+  .catch(error => {
+    console.log(error);
+    alert("حدث خطأ في الشبكة، يرجى التحقق من اتصالك بالإنترنت.");
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = '<i class="fas fa-heart" style="margin-left:8px;"></i>أرسل';
+  });
 }
 
 /* ===== SPARKLE ON CLICK ===== */
