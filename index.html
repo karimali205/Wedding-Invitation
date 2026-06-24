@@ -219,13 +219,19 @@ button{cursor:pointer;font-family:inherit;}
 }
 .hero-names{
   font-family:'Amiri',serif;
-  font-size:clamp(3.8rem,11vw,7.5rem);
-  color:var(--white);line-height:.95;
+  font-size:clamp(3.5rem, 10vw, 7rem);
+  color:var(--white);
+  line-height:1.2;
   margin-bottom:18px;
   text-shadow:0 2px 60px rgba(212,175,55,.35);
-  display:flex;align-items:center;justify-content:center;gap:clamp(40px,8vw,90px);flex-wrap:wrap;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap: clamp(50px, 15vw, 110px) !important;
+  flex-wrap:nowrap !important;
+  width: 100%;
 }
-.hero-names .hn-name{white-space:nowrap;}
+.hero-names .hn-name{white-space:nowrap; display: inline-block;}
 .hero-heart-icon{
   color:var(--rose-gold);font-size:.58em;vertical-align:middle;
   display:inline-block;animation:heartbeat 1.9s ease infinite;
@@ -247,16 +253,8 @@ button{cursor:pointer;font-family:inherit;}
   font-weight:300;line-height:2.1;margin-bottom:30px;
 }
 .hero-couple{
-  display:flex;align-items:center;justify-content:center;gap:clamp(28px,5vw,50px);
-  margin:20px 0 36px;flex-wrap:wrap;
+  display:none; /* تم إخفاؤه لمنع التكرار مع الأسهم العلوية الكبيرة */
 }
-.couple-name{
-  font-family:'Amiri',serif;
-  font-size:clamp(2rem,5.5vw,3.2rem);
-  color:var(--white);font-weight:700;
-  text-shadow:0 0 30px rgba(212,175,55,.5);
-}
-.couple-sep{font-size:1.8rem;color:var(--rose-light);opacity:.8;animation:heartbeat 1.9s ease infinite;}
 
 /* Date glass card */
 .hero-dates-row{
@@ -270,6 +268,9 @@ button{cursor:pointer;font-family:inherit;}
   border:1px solid var(--glass-border);
   border-radius:18px;
   padding:20px 36px 22px;
+  flex: 1;
+  max-width: 260px;
+  min-width: 200px;
 }
 .hero-date-eyebrow{
   font-size:.78rem;color:var(--champagne);
@@ -290,11 +291,13 @@ button{cursor:pointer;font-family:inherit;}
   backdrop-filter:blur(10px);
   border:1px solid var(--glass-border);
   border-radius:14px;padding:14px 18px;min-width:78px;
+  flex: 1;
+  max-width: 100px;
 }
 .hcd-num{
   display:block;
   font-family:'Cairo',sans-serif;
-  font-size:clamp(1.7rem,4vw,2.3rem);font-weight:700;
+  font-size:clamp(1.5rem,4vw,2.3rem);font-weight:700;
   color:var(--champagne);line-height:1;
   text-shadow:0 0 22px rgba(212,175,55,.55);
   transition:transform .25s;
@@ -435,7 +438,7 @@ button{cursor:pointer;font-family:inherit;}
   border:3px solid var(--white);
   box-shadow:0 0 0 2px var(--champagne),0 4px 16px rgba(212,175,55,.3);
   display:flex;align-items:center;justify-content:center;
-  font-size:1.2rem;z-index:1;flex-shrink:0;
+  font-size:1.2rem;z-index:1;
 }
 .tl-spacer{flex:1;}
 .tl-title{
@@ -498,11 +501,11 @@ button{cursor:pointer;font-family:inherit;}
   display:flex;justify-content:center;align-items:center;
   gap:18px;flex-wrap:wrap;position:relative;z-index:2;
 }
-.cbd-unit{text-align:center;min-width:110px;}
+.cbd-unit{text-align:center;min-width:90px; flex: 1; max-width: 120px;}
 .cbd-num{
   display:block;
   font-family:'Cairo',sans-serif;
-  font-size:clamp(2.8rem,7.5vw,5.5rem);font-weight:700;
+  font-size:clamp(2.2rem,6vw,4.5rem);font-weight:700;
   color:var(--champagne);line-height:1;
   text-shadow:0 0 50px rgba(212,175,55,.4);
   transition:transform .25s;
@@ -514,7 +517,7 @@ button{cursor:pointer;font-family:inherit;}
 }
 .cbd-sep{
   font-family:'Cairo',sans-serif;
-  font-size:clamp(2rem,5vw,3.8rem);
+  font-size:clamp(1.8rem,4vw,3.2rem);
   color:rgba(212,175,55,.35);line-height:1;
   padding-bottom:20px;
 }
@@ -524,18 +527,20 @@ button{cursor:pointer;font-family:inherit;}
 ===================================================== */
 #gallery{background:var(--white);}
 .gallery-grid{
-  columns:3 230px;gap:16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
 }
 .gal-item{
-  break-inside:avoid;margin-bottom:16px;
   overflow:hidden;border-radius:16px;
   position:relative;cursor:pointer;
   box-shadow:0 4px 18px rgba(0,0,0,.08);
   transition:box-shadow .3s;
+  aspect-ratio: 4/5;
 }
 .gal-item:hover{box-shadow:0 8px 32px rgba(212,175,55,.2);}
 .gal-item img{
-  width:100%;height:auto;display:block;
+  width:100%;height:100%;object-fit: cover;display:block;
   transition:transform .55s ease;
 }
 .gal-item:hover img{transform:scale(1.08);}
@@ -753,26 +758,29 @@ footer{
 }
 
 /* =====================================================
-   RESPONSIVE
+   RESPONSIVE (MOBILE & TABLET FIXES)
 ===================================================== */
 @media(max-width:768px){
   #nav{padding:10px 14px;gap:14px;}
   .nav-link{font-size:.76rem;}
-  .hero-couple{flex-direction:column;gap:6px;}
   .story-wrap{padding:30px 22px;}
   .timeline-track::before{left:24px;}
   .tl-item{flex-direction:column!important;padding-right:56px;}
   .tl-dot{position:absolute;right:0;top:0;}
   .tl-spacer{display:none;}
   .rsvp-card{padding:34px 22px;}
-  .gallery-grid{columns:2 140px;}
-  #music-btn,#scroll-top{left:12px;}
+  .gallery-grid{grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px;}
+  #music-btn{bottom: 24px; left: 16px;} /* تعديل المسافات السفلية لراحة يد تصفح الموبايل */
+  #scroll-top{bottom: 88px; left: 16px;}
   .countdown-big{gap:10px;}
   .cbd-sep{display:none;}
   .hero-date-glass{padding:16px 24px;}
+  .hero-names {
+    gap: clamp(30px, 10vw, 60px) !important;
+  }
 }
 @media(max-width:480px){
-  .gallery-grid{columns:1;}
+  .gallery-grid{grid-template-columns: 1fr 1fr;} /* يظهر صورتين بجانب بعض بشكل منظم جداً على الهواتف الضيقة */
   .details-grid{grid-template-columns:1fr 1fr;}
   .invite-btn{padding:14px 28px;font-size:.9rem;}
 }
@@ -780,10 +788,8 @@ footer{
 </head>
 <body>
 
-<!-- ===== PROGRESS BAR ===== -->
 <div id="progress-bar"></div>
 
-<!-- ===== LOADER ===== -->
 <div id="loader">
   <div class="loader-mandala">
     <svg viewBox="0 0 110 110" width="110" height="110" xmlns="http://www.w3.org/2000/svg">
@@ -816,10 +822,8 @@ footer{
   <div class="loader-bar"><div class="loader-bar-fill"></div></div>
 </div>
 
-<!-- ===== PARTICLES ===== -->
 <div id="particles"></div>
 
-<!-- ===== LIGHTBOX ===== -->
 <div id="lightbox">
   <span id="lb-close">✕</span>
   <span id="lb-prev"><i class="fas fa-chevron-right"></i></span>
@@ -827,7 +831,6 @@ footer{
   <span id="lb-next"><i class="fas fa-chevron-left"></i></span>
 </div>
 
-<!-- ===== NAVIGATION ===== -->
 <nav id="nav">
   <span class="nav-link" onclick="scrollSec('story')">قصتنا</span>
   <span class="nav-dot">◆</span>
@@ -840,7 +843,6 @@ footer{
   <span class="nav-link" onclick="scrollSec('rsvp')">التأكيد</span>
 </nav>
 
-<!-- ===== MUSIC ===== -->
 <button id="music-btn" title="تشغيل الموسيقى" aria-label="موسيقى الزفاف">
   <i class="fas fa-music"></i>
 </button>
@@ -848,14 +850,10 @@ footer{
   <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
 </audio>
 
-<!-- ===== SCROLL TOP ===== -->
 <button id="scroll-top" aria-label="العودة للأعلى" onclick="window.scrollTo({top:0,behavior:'smooth'})">
   <i class="fas fa-chevron-up"></i>
 </button>
 
-<!-- =====================================================
-     HERO SECTION
-===================================================== -->
 <section id="hero">
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
@@ -863,16 +861,13 @@ footer{
   <div class="hero-geo"></div>
 
   <div class="hero-content">
-    <!-- Bismillah -->
     <p class="hero-bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
 
-    <!-- Names -->
-    <h1 class="hero-names" style="display: flex; justify-content: center; gap: clamp(60px, 15vw, 120px) !important; flex-wrap: wrap; width: 100%;">
-      <span class="hn-name" style="margin-left: 0;">كريم</span>
-      <span class="hn-name" style="margin-right: 0;">علياء</span>
+    <h1 class="hero-names">
+      <span class="hn-name">كريم</span>
+      <span class="hn-name">علياء</span>
     </h1>
 
-    <!-- Ornament -->
     <div class="hero-rule">
       <div class="hero-rule-line"></div>
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -883,19 +878,11 @@ footer{
       <div class="hero-rule-line"></div>
     </div>
 
-    <!-- Subtitle -->
     <p class="hero-subtitle">
       بكل الحب والفرح...<br>
       يسرنا دعوتكم لمشاركتنا أجمل لحظات العمر
     </p>
 
-    <!-- Couple names -->
-    <div class="hero-couple">
-      <span class="couple-name">كريم</span>
-      <span class="couple-name">علياء</span>
-    </div>
-
-    <!-- Date cards -->
     <div class="hero-dates-row">
       <div class="hero-date-glass">
         <div class="hero-date-eyebrow">🌿 &nbsp; يوم الحنة</div>
@@ -913,7 +900,6 @@ footer{
       </div>
     </div>
 
-    <!-- Countdown -->
     <div class="hero-countdown">
       <div class="hcd-unit">
         <span class="hcd-num" id="h-days">---</span>
@@ -936,12 +922,9 @@ footer{
 
 </section>
 
-<!-- =====================================================
-     OUR STORY
-===================================================== -->
 <section id="story" class="section">
   <div class="section-inner">
-    <p class="sec-eyebrow reveal">✦ &nbsp; قصة الحب &nbsp; ✦</p>
+    <p class="sec-eyebrow reveal">✦ &nbsp; قصة جميلة &nbsp; ✦</p>
     <h2 class="sec-title reveal">لكل قصة بداية...</h2>
     <div class="sec-ornament reveal">
       <div class="orn-line"></div>
@@ -969,9 +952,6 @@ footer{
   </div>
 </section>
 
-<!-- =====================================================
-     BLESSING
-===================================================== -->
 <section id="blessing" class="section">
   <div class="section-inner">
     <p class="sec-eyebrow reveal">✦ &nbsp; دعاء القلوب &nbsp; ✦</p>
@@ -994,9 +974,6 @@ footer{
   </div>
 </section>
 
-<!-- =====================================================
-     TIMELINE
-===================================================== -->
 <section id="timeline" class="section">
   <div class="section-inner">
     <p class="sec-eyebrow reveal">✦ &nbsp; مسيرة الفرح &nbsp; ✦</p>
@@ -1036,9 +1013,6 @@ footer{
   </div>
 </section>
 
-<!-- =====================================================
-     WEDDING DETAILS
-===================================================== -->
 <section id="details" class="section">
   <div class="section-inner">
     <p class="sec-eyebrow reveal">✦ &nbsp; تفاصيل الحفل &nbsp; ✦</p>
@@ -1073,9 +1047,6 @@ footer{
   </div>
 </section>
 
-<!-- =====================================================
-     COUNTDOWN SECTION
-===================================================== -->
 <section id="countdown-section" class="section">
   <div class="cd-section-bg"></div>
   <div class="cd-geo"></div>
@@ -1111,9 +1082,6 @@ footer{
   </div>
 </section>
 
-<!-- =====================================================
-     FINAL INVITATION
-===================================================== -->
 <section id="invitation" class="section">
   <div class="invite-deco"></div>
   <div class="section-inner">
@@ -1140,9 +1108,6 @@ footer{
   </div>
 </section>
 
-<!-- =====================================================
-     RSVP
-===================================================== -->
 <section id="rsvp" class="section">
   <div class="rsvp-bg"></div>
   <div class="section-inner">
@@ -1164,7 +1129,7 @@ footer{
         <input class="rsvp-input" type="text" id="rsvp-msg" placeholder="كلمة تهنئة أو دعاء">
         <button class="rsvp-btn" onclick="submitRsvp()">
           <i class="fas fa-heart" style="margin-left:8px;"></i>
-          أرسل تأكيدي
+          أرسل
         </button>
       </div>
       <div class="rsvp-success" id="rsvp-success">
@@ -1177,9 +1142,6 @@ footer{
   </div>
 </section>
 
-<!-- =====================================================
-     GALLERY
-===================================================== -->
 <section id="gallery" class="section">
   <div class="section-inner">
     <p class="sec-eyebrow reveal">✦ &nbsp; الصور &nbsp; ✦</p>
@@ -1226,9 +1188,6 @@ footer{
   </div>
 </section>
 
-<!-- =====================================================
-     FOOTER
-===================================================== -->
 <footer>
   <svg class="footer-mandala" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="30" cy="30" r="28" stroke="rgba(212,175,55,0.3)" stroke-width="0.5"/>
@@ -1248,9 +1207,6 @@ footer{
   <p class="footer-dua">نسأل الله أن يديم عليكم السعادة والمحبة.<br>السبت ١ أغسطس ٢٠٢٦</p>
 </footer>
 
-<!-- =====================================================
-     JAVASCRIPT
-===================================================== -->
 <script>
 /* ===== LOADER ===== */
 window.addEventListener('load', () => {
