@@ -146,24 +146,8 @@ button{cursor:pointer;font-family:inherit;}
 .nav-dot{color:var(--champagne);opacity:.45;font-size:.6rem;}
 
 /* =====================================================
-   FIXED BUTTONS
+   FIXED SCROLL TOP BUTTON
 ===================================================== */
-#music-btn{
-  position:fixed;bottom:84px;left:22px;
-  width:52px;height:52px;border-radius:50%;
-  background:linear-gradient(145deg,var(--champagne),var(--champagne-dark));
-  border:none;color:#1a1209;font-size:1.15rem;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 22px rgba(212,175,55,.4);
-  z-index:150;transition:transform .3s,box-shadow .3s;
-  animation:pulse-ring 3s ease infinite;
-}
-#music-btn:hover{transform:scale(1.1);box-shadow:0 6px 30px rgba(212,175,55,.6);}
-#music-btn.playing{animation:none;}
-@keyframes pulse-ring{
-  0%,100%{box-shadow:0 4px 20px rgba(212,175,55,.4);}
-  50%{box-shadow:0 4px 32px rgba(212,175,55,.7),0 0 0 10px rgba(212,175,55,.08);}
-}
 #scroll-top{
   position:fixed;bottom:24px;left:22px;
   width:44px;height:44px;border-radius:50%;
@@ -232,11 +216,6 @@ button{cursor:pointer;font-family:inherit;}
   width: 100%;
 }
 .hero-names .hn-name{white-space:nowrap; display: inline-block;}
-.hero-heart-icon{
-  color:var(--rose-gold);font-size:.58em;vertical-align:middle;
-  display:inline-block;animation:heartbeat 1.9s ease infinite;
-  filter:drop-shadow(0 0 12px rgba(200,132,122,.6));
-}
 .hero-rule{
   display:flex;align-items:center;justify-content:center;gap:18px;
   margin:22px 0;
@@ -245,15 +224,11 @@ button{cursor:pointer;font-family:inherit;}
   height:1px;flex:1;max-width:160px;
   background:linear-gradient(to right,transparent,var(--champagne),transparent);
 }
-.hero-rule-diamond{color:var(--champagne);font-size:.95rem;}
 .hero-subtitle{
   font-family:'Cairo',sans-serif;
   font-size:clamp(.95rem,2.2vw,1.18rem);
   color:rgba(255,255,255,.85);
   font-weight:300;line-height:2.1;margin-bottom:30px;
-}
-.hero-couple{
-  display:none; /* تم إخفاؤه لمنع التكرار مع الأسهم العلوية الكبيرة */
 }
 
 /* Date glass card */
@@ -321,7 +296,7 @@ button{cursor:pointer;font-family:inherit;}
 
 /* =====================================================
    SECTION BASE
-===================================================== */
+==================================================== */
 .section{padding:88px 24px;position:relative;}
 .section-inner{max-width:1080px;margin:0 auto;}
 .sec-eyebrow{
@@ -344,7 +319,6 @@ button{cursor:pointer;font-family:inherit;}
   height:1px;width:72px;
   background:linear-gradient(to left,transparent,var(--champagne),transparent);
 }
-.orn-svg{display:flex;align-items:center;gap:8px;}
 
 /* =====================================================
    REVEAL ANIMATIONS
@@ -770,8 +744,7 @@ footer{
   .tl-spacer{display:none;}
   .rsvp-card{padding:34px 22px;}
   .gallery-grid{grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px;}
-  #music-btn{bottom: 24px; left: 16px;} /* تعديل المسافات السفلية لراحة يد تصفح الموبايل */
-  #scroll-top{bottom: 88px; left: 16px;}
+  #scroll-top{bottom: 24px; left: 16px;}
   .countdown-big{gap:10px;}
   .cbd-sep{display:none;}
   .hero-date-glass{padding:16px 24px;}
@@ -780,7 +753,7 @@ footer{
   }
 }
 @media(max-width:480px){
-  .gallery-grid{grid-template-columns: 1fr 1fr;} /* يظهر صورتين بجانب بعض بشكل منظم جداً على الهواتف الضيقة */
+  .gallery-grid{grid-template-columns: 1fr 1fr;}
   .details-grid{grid-template-columns:1fr 1fr;}
   .invite-btn{padding:14px 28px;font-size:.9rem;}
 }
@@ -788,8 +761,10 @@ footer{
 </head>
 <body>
 
+<!-- ===== PROGRESS BAR ===== -->
 <div id="progress-bar"></div>
 
+<!-- ===== LOADER ===== -->
 <div id="loader">
   <div class="loader-mandala">
     <svg viewBox="0 0 110 110" width="110" height="110" xmlns="http://www.w3.org/2000/svg">
@@ -822,8 +797,10 @@ footer{
   <div class="loader-bar"><div class="loader-bar-fill"></div></div>
 </div>
 
+<!-- ===== PARTICLES ===== -->
 <div id="particles"></div>
 
+<!-- ===== LIGHTBOX ===== -->
 <div id="lightbox">
   <span id="lb-close">✕</span>
   <span id="lb-prev"><i class="fas fa-chevron-right"></i></span>
@@ -831,6 +808,7 @@ footer{
   <span id="lb-next"><i class="fas fa-chevron-left"></i></span>
 </div>
 
+<!-- ===== NAVIGATION ===== -->
 <nav id="nav">
   <span class="nav-link" onclick="scrollSec('story')">قصتنا</span>
   <span class="nav-dot">◆</span>
@@ -843,17 +821,14 @@ footer{
   <span class="nav-link" onclick="scrollSec('rsvp')">التأكيد</span>
 </nav>
 
-<button id="music-btn" title="تشغيل الموسيقى" aria-label="موسيقى الزفاف">
-  <i class="fas fa-music"></i>
-</button>
-<audio id="wedding-audio" loop preload="auto">
-  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
-</audio>
-
+<!-- ===== SCROLL TOP ===== -->
 <button id="scroll-top" aria-label="العودة للأعلى" onclick="window.scrollTo({top:0,behavior:'smooth'})">
   <i class="fas fa-chevron-up"></i>
 </button>
 
+<!-- =====================================================
+     HERO SECTION
+===================================================== -->
 <section id="hero">
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
@@ -861,13 +836,16 @@ footer{
   <div class="hero-geo"></div>
 
   <div class="hero-content">
+    <!-- Bismillah -->
     <p class="hero-bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
 
+    <!-- Names -->
     <h1 class="hero-names">
       <span class="hn-name">كريم</span>
       <span class="hn-name">علياء</span>
     </h1>
 
+    <!-- Ornament -->
     <div class="hero-rule">
       <div class="hero-rule-line"></div>
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -878,11 +856,13 @@ footer{
       <div class="hero-rule-line"></div>
     </div>
 
+    <!-- Subtitle -->
     <p class="hero-subtitle">
       بكل الحب والفرح...<br>
       يسرنا دعوتكم لمشاركتنا أجمل لحظات العمر
     </p>
 
+    <!-- Date cards -->
     <div class="hero-dates-row">
       <div class="hero-date-glass">
         <div class="hero-date-eyebrow">🌿 &nbsp; يوم الحنة</div>
@@ -900,6 +880,7 @@ footer{
       </div>
     </div>
 
+    <!-- Countdown -->
     <div class="hero-countdown">
       <div class="hcd-unit">
         <span class="hcd-num" id="h-days">---</span>
@@ -922,9 +903,12 @@ footer{
 
 </section>
 
+<!-- =====================================================
+     OUR STORY
+===================================================== -->
 <section id="story" class="section">
   <div class="section-inner">
-    <p class="sec-eyebrow reveal">✦ &nbsp; قصة جميلة &nbsp; ✦</p>
+    <p class="sec-eyebrow reveal">✦ &nbsp; قصة الحب &nbsp; ✦</p>
     <h2 class="sec-title reveal">لكل قصة بداية...</h2>
     <div class="sec-ornament reveal">
       <div class="orn-line"></div>
@@ -952,6 +936,9 @@ footer{
   </div>
 </section>
 
+<!-- =====================================================
+     BLESSING
+===================================================== -->
 <section id="blessing" class="section">
   <div class="section-inner">
     <p class="sec-eyebrow reveal">✦ &nbsp; دعاء القلوب &nbsp; ✦</p>
@@ -974,6 +961,9 @@ footer{
   </div>
 </section>
 
+<!-- =====================================================
+     TIMELINE
+===================================================== -->
 <section id="timeline" class="section">
   <div class="section-inner">
     <p class="sec-eyebrow reveal">✦ &nbsp; مسيرة الفرح &nbsp; ✦</p>
@@ -1013,6 +1003,9 @@ footer{
   </div>
 </section>
 
+<!-- =====================================================
+     WEDDING DETAILS
+===================================================== -->
 <section id="details" class="section">
   <div class="section-inner">
     <p class="sec-eyebrow reveal">✦ &nbsp; تفاصيل الحفل &nbsp; ✦</p>
@@ -1047,6 +1040,9 @@ footer{
   </div>
 </section>
 
+<!-- =====================================================
+     COUNTDOWN SECTION
+===================================================== -->
 <section id="countdown-section" class="section">
   <div class="cd-section-bg"></div>
   <div class="cd-geo"></div>
@@ -1082,6 +1078,9 @@ footer{
   </div>
 </section>
 
+<!-- =====================================================
+     FINAL INVITATION
+===================================================== -->
 <section id="invitation" class="section">
   <div class="invite-deco"></div>
   <div class="section-inner">
@@ -1108,6 +1107,9 @@ footer{
   </div>
 </section>
 
+<!-- =====================================================
+     RSVP
+===================================================== -->
 <section id="rsvp" class="section">
   <div class="rsvp-bg"></div>
   <div class="section-inner">
@@ -1142,6 +1144,9 @@ footer{
   </div>
 </section>
 
+<!-- =====================================================
+     GALLERY
+===================================================== -->
 <section id="gallery" class="section">
   <div class="section-inner">
     <p class="sec-eyebrow reveal">✦ &nbsp; الصور &nbsp; ✦</p>
@@ -1188,6 +1193,9 @@ footer{
   </div>
 </section>
 
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 <footer>
   <svg class="footer-mandala" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="30" cy="30" r="28" stroke="rgba(212,175,55,0.3)" stroke-width="0.5"/>
@@ -1207,6 +1215,9 @@ footer{
   <p class="footer-dua">نسأل الله أن يديم عليكم السعادة والمحبة.<br>السبت ١ أغسطس ٢٠٢٦</p>
 </footer>
 
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
 <script>
 /* ===== LOADER ===== */
 window.addEventListener('load', () => {
@@ -1347,25 +1358,6 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeLb();
   if (e.key === 'ArrowRight') lbNav(-1);
   if (e.key === 'ArrowLeft') lbNav(1);
-});
-
-/* ===== MUSIC ===== */
-const audio = document.getElementById('wedding-audio');
-const mBtn  = document.getElementById('music-btn');
-let playing = false;
-mBtn.addEventListener('click', () => {
-  if (!playing) {
-    audio.play().then(() => {
-      playing = true;
-      mBtn.innerHTML = '<i class="fas fa-pause"></i>';
-      mBtn.classList.add('playing');
-    }).catch(() => {});
-  } else {
-    audio.pause();
-    playing = false;
-    mBtn.innerHTML = '<i class="fas fa-music"></i>';
-    mBtn.classList.remove('playing');
-  }
 });
 
 /* ===== RSVP ===== */
